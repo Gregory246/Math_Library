@@ -1,0 +1,54 @@
+# This file determines the sum of any number of multiples within a specified range by the user
+# Copyright 2018 Gregory John
+
+def main():
+    # Initialize variables
+    multiples = []
+    sums = []
+    i = 0
+    integers = 1
+
+    # Detemines the number of multiples from user
+    while True:
+        try:
+            num_mul = int ( input ( 'How many multiples are you using in total?: ' ) )
+            break
+        except ValueError as e:
+            print ( e )
+
+    # Takes multples and store in list
+    while True:
+        try:
+            for y in range ( num_mul ):
+                multiples.append ( int ( input ( 'Please input your No.{} integer here: '.format(integers) ) ) )
+                integers = integers + 1
+            break
+        except ValueError as e:
+            print ( 'Integer Values ONLY' , e )
+
+    # determine the start and stop of the range from user
+    while True:
+        try:
+            start = int ( input ( 'Start of range: ' ) )
+            stop = int ( input ( 'End of range: ' ) ) + 1
+            break
+        except ValueError as e:
+            print ( e )
+
+    # Figures out the multiples of the numbers given between the start and end range
+    while i < len ( multiples ):
+
+        for k in range (start, stop ):
+            if (k % multiples[i]) == 0:
+                sums.append(k)
+            else:
+                continue
+
+        i = i + 1  # increments through the list values by 1
+
+    x = sum(set(sums))  # Gets rid of duplicated values and sums the list of values
+
+    print ( 'Your SUM total is {}.'.format ( x ) )
+
+
+if __name__ == "__main__": main ( )
