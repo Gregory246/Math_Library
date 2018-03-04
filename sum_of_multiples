@@ -1,54 +1,56 @@
 # This file determines the sum of any number of multiples within a specified range by the user
 # Copyright 2018 Gregory John
 
+
+#reads the users input ensuring values are integers values, using a single function.
+def read_integer(input_message):
+    while True:
+        try:
+            number = int( input (input_message) )
+            return number
+        except ValueError:
+            print( 'Integers Values ONLY' )
+
+
+
 def main():
     # Initialize variables
-    multiples = []
+    natural_numbers = []
     sums = []
-    i = 0
-    integers = 1
 
-    # Detemines the number of multiples from user
-    while True:
-        try:
-            num_mul = int ( input ( 'How many multiples are you using in total?: ' ) )
-            break
-        except ValueError as e:
-            print ( e )
-
-    # Takes multples and store in list
-    while True:
-        try:
-            for y in range ( num_mul ):
-                multiples.append ( int ( input ( 'Please input your No.{} integer here: '.format(integers) ) ) )
-                integers = integers + 1
-            break
-        except ValueError as e:
-            print ( 'Integer Values ONLY' , e )
+    # This sets the message to determine the number of natural numbers required from user
+    input_message = 'How many multiples are you using in total?: '
+    natural_num_count = read_integer(input_message)
+     
+    # Stores natural numbers in list
+    for y in range ( natural_num_count ):
+        input_message = 'Please input your No.{} integer here: '.format(y+1)
+        new_natural_numbers = read_integer(input_message)
+        natural_numbers.append( new_natural_numbers )
 
     # determine the start and stop of the range from user
-    while True:
-        try:
-            start = int ( input ( 'Start of range: ' ) )
-            stop = int ( input ( 'End of range: ' ) ) + 1
-            break
-        except ValueError as e:
-            print ( e )
+    input_message = 'Start of range: '
+    start = read_integer( input_message )
+    
+    input_message = 'End of range: '
+    stop = read_integer( input_message ) + 1
 
-    # Figures out the multiples of the numbers given between the start and end range
-    while i < len ( multiples ):
 
-        for k in range (start, stop ):
-            if (k % multiples[i]) == 0:
+    # Figures out the multiples of the numbers given between the start and end range and avoids duplicates
+    for k in range ( start, stop ):
+        for num in natural_numbers:
+            if (k % num) == 0:
                 sums.append(k)
-            else:
-                continue
+                break
+            
+    sum_of_multiples = sum(sums) 
 
-        i = i + 1  # increments through the list values by 1
+    print()
+    print()
+    print()
 
-    x = sum(set(sums))  # Gets rid of duplicated values and sums the list of values
 
-    print ( 'Your SUM total is {}.'.format ( x ) )
+    print ( 'Your SUM total is {}.'.format ( sum_of_multiples ) )
 
 
 if __name__ == "__main__": main ( )
